@@ -77,10 +77,12 @@ in Elixir are unbounded, meaning they have no maximum size.
 Contrast that with a language like JavaScript which has a maximum safe integer size of `9007199254740991`.
 Elixir makes that look tiny!
 
-<!-- livebook:{"attrs":{"code":"biggest_integer = 1","source":"Kino.Markdown.new(~s(\ninteger: #{biggest_integer}\\n\ndigits: #{biggest_integer |> Integer.digits() |> Enum.count()}\n))","title":"Biggest Integer Visual"},"kind":"Elixir.Visual","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"code":"biggest_integer = 9999999999999999999999999999999999999999999999999999999999999","source":"Kino.Markdown.new(~s(\ninteger: #{biggest_integer}\\n\ndigits: #{biggest_integer |> Integer.digits() |> Enum.count()}\n))","title":true},"kind":"Elixir.Visual","livebook_object":"smart_cell"} -->
 
 ```elixir
-biggest_integer = 1
+biggest_integer =
+  9_999_999_999_999_999_999_999_999_999_999_999_999_999_999_999_999_999_999_999_999
+
 Kino.Markdown.new(~s(
 integer: #{biggest_integer}\n
 digits: #{biggest_integer |> Integer.digits() |> Enum.count()}
@@ -147,7 +149,7 @@ In the Elixir cell below, try changing the float `percentage` to any float betwe
 and see how the loading bar changes! Replace `50.0` with your answer and reevaluate the cell.
 
 ```elixir
-percentage = 50.0
+percentage = 25.0
 
 Utils.visual(:loading_bar, percentage)
 ```
@@ -190,7 +192,7 @@ provide utilities for working with money.
 In the Elixir cell below, enter some floating-point addition that returns an unexpected result.
 
 ```elixir
-
+0.1 + 0.2
 ```
 
 ## Arithmetic Operators
@@ -221,7 +223,7 @@ The following code will crash because there is a dangling `+` operator. The erro
 Elixir lets you know why with an error message.
 
 ```elixir
-2 +
+2 + 0.1
 ```
 
 As mentioned, adding floats together may result in floating point errors, so only use them
@@ -256,7 +258,7 @@ to write code like this, but it's useful to know you can.
 In the Elixir cell below, add two massive numbers together that you couldn't do in your head.
 
 ```elixir
-
+1_982_371_982_739_180_273 + 129_736_190_372_182_370_198_723
 ```
 
 ## Subtraction
@@ -294,7 +296,7 @@ Subtracting a negative is the same as adding a positive.
 In the Elixir cell below, subtract two massive numbers together.
 
 ```elixir
-
+87_658_765 - 7_687_687
 ```
 
 ## Multiplication
@@ -323,7 +325,7 @@ You can multiply integers and floats both positive and negative in combination, 
 In the Elixir cell below, multiply two massive numbers together.
 
 ```elixir
-
+7_687_687_689 * 09_880_980_980
 ```
 
 ## Division
@@ -356,7 +358,7 @@ floating-point calculation issues discussed in the floats lesson.
 For example, notice that `10 / 3` is `3.3333333333333335`.
 
 ```elixir
-10 / 3
+10 / 3 + 10 / 3 + 10 / 3
 ```
 
 ### Your Turn
@@ -365,13 +367,13 @@ In the Elixir cell below, divide `223` by `71` using `/` to get a nice slice of 
 should be close to `3.14`.
 
 ```elixir
-
+223 / 71
 ```
 
 Divide `100` by `3` using `div`. Your answer should be `33`.
 
 ```elixir
-
+div(223, 71)
 ```
 
 ## Exponents
@@ -396,7 +398,7 @@ YouTube.new("https://www.youtube.com/watch?v=XZRQhkii0h0")
 In the Elixir cell below, find `10` to the power of `214`. Replace `nil` with your answer.
 
 ```elixir
-result = nil
+result = 10 ** 214
 
 Utils.feedback(:exponents, result)
 ```
@@ -465,7 +467,7 @@ In the Elixir cell below,
 Use brackets `()` to alter the return value of the expression.
 
 ```elixir
-answer = 20 + 20 * 20
+answer = (20 + 20) * 20
 
 Utils.feedback(:bedmas, answer)
 ```
@@ -523,7 +525,7 @@ end)
 In the Elixir cell below, find the remainder of `10` divided by `3` using `rem/2`. Replace `nil` with your answer.
 
 ```elixir
-remainder = nil
+remainder = rem(10, 3)
 
 Utils.feedback(:remainder, remainder)
 ```
