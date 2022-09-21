@@ -60,7 +60,7 @@ In the Elixir cell below, create a string `"Hello, world!"`. This is a rite of p
 programmer.
 
 ```elixir
-
+"Hello, world"
 ```
 
 ## String Operators
@@ -90,7 +90,7 @@ So `"Peter"` would be come `"Hi, Peter."`.
 Replace `nil` with your answer.
 
 ```elixir
-answer = nil
+answer = "Hi, " <> "Peter."
 
 Utils.feedback(:string_concatenation, answer)
 ```
@@ -126,7 +126,7 @@ X is the number of people in your cohort including yourself.
 Replace `nil` with your answer.
 
 ```elixir
-answer = nil
+answer = "I have #{20 - 1} classmates."
 
 Utils.feedback(:string_interpolation, answer)
 ```
