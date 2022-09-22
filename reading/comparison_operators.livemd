@@ -99,7 +99,9 @@ You'll notice several data types that you may not be familiar with above. Don't 
 
 ### Strictly Equals
 
-<!-- livebook:{"break_markdown":true} -->
+```elixir
+
+```
 
 There are two operators for checking equality in Elixir. `===` will check if two values
 are strictly equal in both value and type. So despite having  the same numerical value,
