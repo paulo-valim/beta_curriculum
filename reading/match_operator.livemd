@@ -14,7 +14,7 @@ Mix.install([
 [Return Home](../start.livemd)<span style="padding: 0 30px"></span>
 [Report An Issue](https://github.com/DockYard-Academy/beta_curriculum/issues/new?assignees=&labels=&template=issue.md&title=)
 
-## Setup
+## Setupra
 
 Ensure you type the `ea` keyboard shortcut to evaluate all Elixir cells before starting. Alternatively, you can evaluate the Elixir cells as you read.
 
@@ -160,7 +160,7 @@ you're using an unbound variable.
 In the Elixir cell below, create a variable `hello` and bind it to the value `"world"`. Replace `nil` with your answer.
 
 ```elixir
-hello = nil
+hello = "world"
 
 Utils.feedback(:hello, hello)
 ```
@@ -190,7 +190,7 @@ So when we write `hello = 4`, the data `"world"` mutates into `4`.
 
 ```mermaid
 flowchart LR
-    hello --> w["world"]
+    hello --> w["4"]
 ```
 
 However, we do not allow mutation in a functional programming language like Elixir.
@@ -268,7 +268,7 @@ Use pattern matching to bind `"jewel"` to a variable called `jewel`.
 Replace `jewel` with your answer.
 
 ```elixir
-jewel = [1, 2, "jewel"]
+[_, _, jewel] = [1, 2, "jewel"]
 
 Utils.feedback(:jewel, jewel)
 ```
@@ -299,7 +299,7 @@ my_value
 Use `IO.inspect` to print the `hello` variable.
 
 ```elixir
-hello = "world!"
+hello = IO.inspect("world!")
 ```
 
 ## Commit Your Progress
