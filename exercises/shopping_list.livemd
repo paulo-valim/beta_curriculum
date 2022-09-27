@@ -153,7 +153,7 @@ shopping_cart = shopping_cart ++ [candies: 5]
 
 </details>
 
-<!-- livebook:{"attrs":{"assertions":"list = [] ++ [milk: 1, eggs: 12]\nlist = list ++ [bars_of_butter: 2, candies: 10]\nlist = list -- [bars_of_butter: 2]\nlist = list -- [candies: 10]\nlist = list ++ [candies: 5]\n\nassert is_list(shopping_cart), \"Ensure shopping_list is still a list.\"\n\nassert shopping_cart == list","attempts":3,"code":"shopping_cart = []\nshopping_cart = [] ++ [milk: 1, eggs: 12]\nshopping_cart = shopping_cart ++ [bars_of_butter: 2, candies: 10]\nshopping_cart = shopping_cart -- [bars_of_butter: 2]\nshopping_cart = shopping_cart -- [candies: 10]\nshopping_cart = shopping_cart ++ [candies: 5]\nshopping_cart","solution":"","title":"Shopping Cart With Quantities"},"kind":"Elixir.TestedCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"assertions":"list = [] ++ [milk: 1, eggs: 12]\nlist = list ++ [bars_of_butter: 2, candies: 10]\nlist = list -- [bars_of_butter: 2]\nlist = list -- [candies: 10]\nlist = list ++ [candies: 5]\n\nassert is_list(shopping_cart), \"Ensure shopping_list is still a list.\"\n\nassert shopping_cart == list","attempts":7,"code":"shopping_cart = [] ++ [milk: 1, eggs: 12]\nshopping_cart = shopping_cart ++ [bars_of_butter: 2, candies: 10]\nshopping_cart = shopping_cart -- [bars_of_butter: 2]\nshopping_cart = shopping_cart -- [candies: 10]\nshopping_cart = shopping_cart ++ [candies: 5]","solution":"","title":"Shopping Cart With Quantities"},"kind":"Elixir.TestedCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 ExUnit.start(auto_run: false)
@@ -164,13 +164,11 @@ defmodule Assertion do
   test "Shopping Cart With Quantities" do
     try do
       Process.flag(:trap_exit, true)
-      shopping_cart = []
       shopping_cart = [] ++ [milk: 1, eggs: 12]
       shopping_cart = shopping_cart ++ [bars_of_butter: 2, candies: 10]
       shopping_cart = shopping_cart -- [bars_of_butter: 2]
       shopping_cart = shopping_cart -- [candies: 10]
       shopping_cart = shopping_cart ++ [candies: 5]
-      shopping_cart
       list = [] ++ [milk: 1, eggs: 12]
       list = list ++ [bars_of_butter: 2, candies: 10]
       list = list -- [bars_of_butter: 2]
@@ -230,13 +228,11 @@ ExUnit.run()
 # Make variables and modules defined in the test available.
 # Also allows for exploration using the output of the cell.
 # Unfortunately, this results in duplication of warnings.
-shopping_cart = []
 shopping_cart = [] ++ [milk: 1, eggs: 12]
 shopping_cart = shopping_cart ++ [bars_of_butter: 2, candies: 10]
 shopping_cart = shopping_cart -- [bars_of_butter: 2]
 shopping_cart = shopping_cart -- [candies: 10]
 shopping_cart = shopping_cart ++ [candies: 5]
-shopping_cart
 ```
 
 ## Commit Your Progress
