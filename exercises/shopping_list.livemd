@@ -46,7 +46,7 @@ shopping_cart = shopping_cart ++ ["banana", "banana", "banana"]
 
 Enter your solution below.
 
-<!-- livebook:{"attrs":{"assertions":"list = [] ++ [\"grapes\", \"walnuts\", \"apples\"]\nlist = list ++ [\"blueberries\", \"chocolate\", \"pizza\"]\nlist = list -- [\"grapes\", \"walnuts\"]\nlist = list ++ [\"banana\", \"banana\", \"banana\"]\n\nassert is_list(shopping_cart), \"Ensure shopping_list is still a list.\"\n\nassert shopping_cart == list","attempts":3,"code":"shopping_cart = [1]","solution":"","title":"Shopping Cart"},"kind":"Elixir.TestedCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"assertions":"list = [] ++ [\"grapes\", \"walnuts\", \"apples\"]\nlist = list ++ [\"blueberries\", \"chocolate\", \"pizza\"]\nlist = list -- [\"grapes\", \"walnuts\"]\nlist = list ++ [\"banana\", \"banana\", \"banana\"]\n\nassert is_list(shopping_cart), \"Ensure shopping_list is still a list.\"\n\nassert shopping_cart == list","attempts":10,"code":"shopping_cart = [\"grapes\", \"walnuts\", \"apples\"]\nshopping_cart = shopping_cart ++ [\"blueberries\", \"chocolate\", \"pizza\"]\nshopping_cart = shopping_cart -- [\"grapes\", \"walnuts\"]\nshopping_cart = shopping_cart ++ [\"banana\", \"banana\", \"banana\"]","solution":"","title":"Shopping Cart"},"kind":"Elixir.TestedCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 ExUnit.start(auto_run: false)
@@ -57,7 +57,10 @@ defmodule Assertion do
   test "Shopping Cart" do
     try do
       Process.flag(:trap_exit, true)
-      shopping_cart = [1]
+      shopping_cart = ["grapes", "walnuts", "apples"]
+      shopping_cart = shopping_cart ++ ["blueberries", "chocolate", "pizza"]
+      shopping_cart = shopping_cart -- ["grapes", "walnuts"]
+      shopping_cart = shopping_cart ++ ["banana", "banana", "banana"]
       list = [] ++ ["grapes", "walnuts", "apples"]
       list = list ++ ["blueberries", "chocolate", "pizza"]
       list = list -- ["grapes", "walnuts"]
@@ -80,7 +83,7 @@ defmodule Assertion do
 
             #{inspect(error)}
 
-            When it received: #{inspect(message)} #{message_type}
+            When it recieved: #{inspect(message)} #{message_type}
 
             Likely you need to define the corresponding handler for #{inspect(message)}.
 
@@ -105,7 +108,7 @@ defmodule Assertion do
       # all warnings and errors are printed to the previous Kino Frame
       # to avoid cluttering the test results display.
       Process.sleep(10)
-      Kino.render(Kino.Markdown.new("### Test Results
+      Kino.render(Kino.Markdown.new("### Test Results 
 <hr/>"))
     end
   end
@@ -116,7 +119,10 @@ ExUnit.run()
 # Make variables and modules defined in the test available.
 # Also allows for exploration using the output of the cell.
 # Unfortunately, this results in duplication of warnings.
-shopping_cart = [1]
+shopping_cart = ["grapes", "walnuts", "apples"]
+shopping_cart = shopping_cart ++ ["blueberries", "chocolate", "pizza"]
+shopping_cart = shopping_cart -- ["grapes", "walnuts"]
+shopping_cart = shopping_cart ++ ["banana", "banana", "banana"]
 ```
 
 ## Text Shopping List With Quantities
@@ -147,7 +153,7 @@ shopping_cart = shopping_cart ++ [candies: 5]
 
 </details>
 
-<!-- livebook:{"attrs":{"assertions":"list = [] ++ [milk: 1, eggs: 12]\nlist = list ++ [bars_of_butter: 2, candies: 10]\nlist = list -- [bars_of_butter: 2]\nlist = list -- [candies: 10]\nlist = list ++ [candies: 5]\n\nassert is_list(shopping_cart), \"Ensure shopping_list is still a list.\"\n\nassert shopping_cart == list","attempts":3,"code":"shopping_cart = []","solution":"","title":"Shopping Cart With Quantities"},"kind":"Elixir.TestedCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"assertions":"list = [] ++ [milk: 1, eggs: 12]\nlist = list ++ [bars_of_butter: 2, candies: 10]\nlist = list -- [bars_of_butter: 2]\nlist = list -- [candies: 10]\nlist = list ++ [candies: 5]\n\nassert is_list(shopping_cart), \"Ensure shopping_list is still a list.\"\n\nassert shopping_cart == list","attempts":3,"code":"shopping_cart = []\nshopping_cart = [] ++ [milk: 1, eggs: 12]\nshopping_cart = shopping_cart ++ [bars_of_butter: 2, candies: 10]\nshopping_cart = shopping_cart -- [bars_of_butter: 2]\nshopping_cart = shopping_cart -- [candies: 10]\nshopping_cart = shopping_cart ++ [candies: 5]\nshopping_cart","solution":"","title":"Shopping Cart With Quantities"},"kind":"Elixir.TestedCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 ExUnit.start(auto_run: false)
@@ -159,6 +165,12 @@ defmodule Assertion do
     try do
       Process.flag(:trap_exit, true)
       shopping_cart = []
+      shopping_cart = [] ++ [milk: 1, eggs: 12]
+      shopping_cart = shopping_cart ++ [bars_of_butter: 2, candies: 10]
+      shopping_cart = shopping_cart -- [bars_of_butter: 2]
+      shopping_cart = shopping_cart -- [candies: 10]
+      shopping_cart = shopping_cart ++ [candies: 5]
+      shopping_cart
       list = [] ++ [milk: 1, eggs: 12]
       list = list ++ [bars_of_butter: 2, candies: 10]
       list = list -- [bars_of_butter: 2]
@@ -182,7 +194,7 @@ defmodule Assertion do
 
             #{inspect(error)}
 
-            When it received: #{inspect(message)} #{message_type}
+            When it recieved: #{inspect(message)} #{message_type}
 
             Likely you need to define the corresponding handler for #{inspect(message)}.
 
@@ -207,7 +219,7 @@ defmodule Assertion do
       # all warnings and errors are printed to the previous Kino Frame
       # to avoid cluttering the test results display.
       Process.sleep(10)
-      Kino.render(Kino.Markdown.new("### Test Results
+      Kino.render(Kino.Markdown.new("### Test Results 
 <hr/>"))
     end
   end
@@ -219,6 +231,12 @@ ExUnit.run()
 # Also allows for exploration using the output of the cell.
 # Unfortunately, this results in duplication of warnings.
 shopping_cart = []
+shopping_cart = [] ++ [milk: 1, eggs: 12]
+shopping_cart = shopping_cart ++ [bars_of_butter: 2, candies: 10]
+shopping_cart = shopping_cart -- [bars_of_butter: 2]
+shopping_cart = shopping_cart -- [candies: 10]
+shopping_cart = shopping_cart ++ [candies: 5]
+shopping_cart
 ```
 
 ## Commit Your Progress
