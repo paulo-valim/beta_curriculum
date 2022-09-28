@@ -482,7 +482,11 @@ In the Elixir cell below
 * Create an `unless` statement. which returns `"awake"` unless `tired`.
 
 ```elixir
+tired = false
 
+unless tired do
+  "awake"
+end
 ```
 
 ## Commit Your Progress
