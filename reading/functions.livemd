@@ -278,7 +278,14 @@ is_even? = fn int -> rem(int, 2) == 0 end
 Enter your solution below.
 
 ```elixir
+is_even = fn number ->
+  cond do
+    rem(number, 2) == 0 -> true
+    rem(number, 2) !== 0 -> false
+  end
+end
 
+is_even.(1231)
 ```
 
 ## Multi-Parameter Functions
@@ -344,7 +351,8 @@ calculate_force = fn mass, acceleration -> mass * acceleration end
 Enter your solution below.
 
 ```elixir
-
+calculate_force = fn mass, acceleration -> mass * acceleration end
+calculate_force.(2, 4)
 ```
 
 ## Shorthand Syntax
@@ -393,7 +401,8 @@ subtract = &(&1 - &2)
 Enter your solution below.
 
 ```elixir
-
+sub_two = &(&1 - &2)
+sub_two.(20, 25)
 ```
 
 ### Your Turn
@@ -419,7 +428,8 @@ multiply_three = &(&1 * &2 * &3)
 Enter your solution below.
 
 ```elixir
-
+mult_3 = &(&1 * &2 * &3)
+mult_3.(2, 5, 3)
 ```
 
 ## First-class Functions
@@ -507,7 +517,15 @@ call_with_10_and_20 = fn callback -> callback.(10, 20) end
 Enter your solution below.
 
 ```elixir
-call_with_20 = nil
+# (CALLBACK)
+add = fn int1, int2 -> int1 + int2 end
+# add.(10, 20) = fn 10, 20 -> 10 + 20 end
+
+# (HIGH-ORDER FUNCTION)
+call_with_10_and_20 = fn x -> x.(10, 20) end
+# call_with_10_and_20 = fn add -> add.(10, 20) end
+
+call_with_10_and_20.(add)
 ```
 
 ## Pipe Operator
@@ -620,7 +638,11 @@ multiply = fn int1, int2 -> int1 * int2 end
 Enter your solution below.
 
 ```elixir
+add = fn a, b -> a + b end
+sub = fn a, b -> a - b end
+mult = fn a, b -> a * b end
 
+10 |> add.(2) |> mult.(5) |> sub.(4)
 ```
 
 ## Commit Your Progress
