@@ -113,7 +113,13 @@ end
 Enter your solution below.
 
 ```elixir
+temperature = 12
 
+if temperature > 10 do
+  "hot"
+else
+  "cold"
+end
 ```
 
 ## Clear Control Flow
@@ -414,7 +420,15 @@ end
 </details>
 
 ```elixir
+grade = 11
 
+cond do
+  grade >= 85 and grade <= 100 -> "A"
+  grade >= 70 and grade <= 84 -> "B"
+  grade >= 55 and grade <= 69 -> "C"
+  grade >= 1 and grade <= 54 -> "D"
+  true -> raise "out of range"
+end
 ```
 
 ## Unless
