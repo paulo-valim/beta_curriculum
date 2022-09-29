@@ -151,7 +151,11 @@ end
 Enter your solution below.
 
 ```elixir
+defmodule Coordinate do
+  defstruct x: 8, y: 9
+end
 
+%Coordinate{}
 ```
 
 ## Module Functions
@@ -226,25 +230,38 @@ end
 Enter your solution below.
 
 ```elixir
+defmodule Hero do
+  defstruct [:name, :secret_identity]
 
+  def greeting(hero) do
+    "I'm #{hero.name}."
+  end
+
+  def reveal(hero) do
+    "I'm #{hero.secret_identity}."
+  end
+end
 ```
 
 When finished create bind a variable `hero` to an instance of your `Hero` struct.
 
 ```elixir
-
+hero = %Hero{
+  name: "Superman",
+  secret_identity: "Clark Kent"
+}
 ```
 
 Use the `Hero.greeting/1` function on `hero` to ensure it works correctly.
 
 ```elixir
-
+Hero.greeting(hero)
 ```
 
 Use the `Hero.reveal/1` function on `hero` to ensure it works correctly.
 
 ```elixir
-
+Hero.reveal(hero)
 ```
 
 ## Updating Structs
