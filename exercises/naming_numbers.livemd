@@ -72,7 +72,22 @@ naming_numbers.(1)
 Enter your solution below.
 
 ```elixir
+naming_number = fn int ->
+  cond do
+    int == 1 -> "one"
+    int == 2 -> "two"
+    int == 3 -> "three"
+    int == 4 -> "four"
+    int == 5 -> "five"
+    int == 6 -> "six"
+    int == 7 -> "seven"
+    int == 8 -> "eight"
+    int == 9 -> "nine"
+    true -> raise "choose a number between 1 and 9"
+  end
+end
 
+naming_number.(10)
 ```
 
 ## Numbering Names
@@ -169,7 +184,21 @@ flowchart
 </details>
 
 ```elixir
+numbering_names = fn number ->
+  cond do
+    number == "one" || number == "One" -> 1
+    number == "two" || number == "Two" -> 2
+    number == "three" || number == "Three" -> 3
+    number == "four" || number == "Four" -> 4
+    number == "five" || number == "Five" -> 5
+    number == "six" || number == "Six" -> 6
+    number == "seven" || number == "Seven" -> 7
+    number == "eight" || number == "Eight" -> 8
+    number == "nine" || number == "Nine" -> 9
+  end
+end
 
+numbering_names.("two")
 ```
 
 ## Commit Your Progress
