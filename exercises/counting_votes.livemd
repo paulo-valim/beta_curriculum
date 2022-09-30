@@ -80,8 +80,12 @@ defmodule Votes do
     0
   """
   def count(votes, vote) do
+    popular_animal = Enum.filter(votes, fn votes -> votes == vote end)
+    Enum.count(popular_animal)
   end
 end
+
+Votes.count([:dogs, :dogs, :dogs, :cats, :cats, :birds], :cats)
 ```
 
 ## Bonus: Voter Tally
@@ -120,8 +124,17 @@ defmodule Votes do
     %{dog: 2, cat: 3, bird: 1}
   """
   def tally(votes) do
+    dog = Enum.filter(votes, fn votes -> votes == :dogs end)
+    votes_dog = Enum.count(dog)
+    cat = Enum.filter(votes, fn votes -> votes == :cats end)
+    votes_cat = Enum.count(cat)
+    bird = Enum.filter(votes, fn votes -> votes == :birds end)
+    votes_bird = Enum.count(bird)
+    %{dogs: votes_dog, cats: votes_cat, birds: votes_bird}
   end
 end
+
+Votes.tally([:dogs, :dogs, :dogs, :cats, :cats, :birds])
 ```
 
 ## Commit Your Progress
