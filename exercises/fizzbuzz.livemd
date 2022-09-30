@@ -71,8 +71,18 @@ defmodule FizzBuzz do
     ["buzz", 11, "fizz", 13, 14, "fizzbuzz"]
   """
   def run(range) do
+    Enum.map(range, fn a ->
+      cond do
+        rem(a, 15) == 0 -> "fizzbuzz"
+        rem(a, 3) == 0 -> "fizz"
+        rem(a, 5) == 0 -> "buzz"
+        a -> a
+      end
+    end)
   end
 end
+
+FizzBuzz.run(1..20)
 ```
 
 ## Commit Your Progress
