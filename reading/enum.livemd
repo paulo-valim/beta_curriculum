@@ -236,7 +236,7 @@ Use [Enum.map/2](https://hexdocs.pm/elixir/1.12/Enum.html#map/2) to convert a li
 Enter your solution below.
 
 ```elixir
-
+Enum.map(1..10, fn integer -> "#{integer}" end)
 ```
 
 ## Enum.reduce/2 and Enum.reduce/3
@@ -357,7 +357,7 @@ Use [Enum.reduce/3](https://hexdocs.pm/elixir/Enum.html#reduce/3) or [Enum.reduc
 Enter your solution below.
 
 ```elixir
-
+Enum.reduce([2, 4, 6, 8, 10], fn integer, accumulator -> integer + accumulator end)
 ```
 
 ## Enum.filter
@@ -395,7 +395,7 @@ odd_numbers = Enum.filter(1..10, fn integer -> rem(integer, 2) != 0 end)
 Enter your solution below.
 
 ```elixir
-
+Enum.filter(1..10, fn interger -> rem(interger, 2) != 0 end)
 ```
 
 ## Enum.all?/2 and Enum.any?/2
@@ -441,7 +441,7 @@ This means both can be performant with large lists, so long as they exit early.
 Evaluate the cell below, notice that it completes instantly. Then change `to_find` to `10000000`. Notice it takes significantly longer, because [Enum.any?/2](https://hexdocs.pm/elixir/Enum.html#any?/2) must check every element before it finally finds the last element that passes the condition.
 
 ```elixir
-to_find = 1
+to_find = 10_000_000
 
 Enum.any?(1..10_000_000, fn int -> int == to_find end)
 ```
@@ -462,6 +462,8 @@ Determine if all of the `colors` are `:green`. You may change the value of `colo
 
 ```elixir
 colors = [:green, :green, :red]
+
+Enum.all?(colors, fn colors -> colors == :green end)
 ```
 
 ### Your Turn
@@ -470,6 +472,8 @@ Determine if any of the `colors` are `:red`. You may change the value of `colors
 
 ```elixir
 colors = [:green, :green, :red]
+
+Enum.any?(colors, fn colors -> colors == :red end)
 ```
 
 ## Enum.count/1
@@ -497,6 +501,7 @@ In the Elixir cell below, count the number of elements in the `collection`. It s
 
 ```elixir
 collection = [1, 2, 3, 4, 5]
+Enum.count(collection)
 ```
 
 ## Enum.find/3
@@ -524,7 +529,19 @@ Enum.find(["h", "e", "l", "l", "o"], 10, fn each -> is_integer(each) end)
 Use [Enum.find/2](https://hexdocs.pm/elixir/Enum.html#find/2) to find the first even integer in this list.
 
 ```elixir
-[1, "2", "three", 4, "five", 6]
+Enum.find(
+  [1, "2", "three", 4, "five", 6],
+  fn each ->
+    if is_integer(each) do
+      cond do
+        is_integer(each) === true && rem(each, 2) == 0 -> true
+        is_integer(each) === true && rem(each, 2) != 0 -> false
+      end
+    else
+      nil
+    end
+  end
+)
 ```
 
 ## Enum.random/1
@@ -551,7 +568,7 @@ Enum.map(1..10, fn _ -> Enum.random(0..9) end)
 Enter your solution below.
 
 ```elixir
-
+Enum.map(1..10, fn _ -> Enum.random(0..9) end)
 ```
 
 ## Capture Operator and Module Functions
