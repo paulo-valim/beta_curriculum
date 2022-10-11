@@ -70,7 +70,13 @@ defmodule Measurements do
     1
   """
   def increased(measurements) do
+    measurements
+    |> Enum.chunk_every(2, 1, :discard)
+    |> Enum.map(fn [x, y] -> y - x end)
+    |> Enum.count(fn results -> results > 0 end)
   end
+
+  Measurements.increased([1, 1, 2, 3, 1])
 
   @doc """
   Given a list of measurements as integers, determine the increment between each integer.
@@ -84,7 +90,12 @@ defmodule Measurements do
     [10, -10, 30]
   """
   def increments(measurements) do
+    measurements
+    |> Enum.chunk_every(2, 1, :discard)
+    |> Enum.map(fn [x, y] -> y - x end)
   end
+
+  Measurements.increments([100, 150, 120, 130])
 
   @doc """
   Given a list of measurements as integers, sum the amount they have increased by.
@@ -99,7 +110,13 @@ defmodule Measurements do
     40
   """
   def increased_by(measurements) do
+    measurements
+    |> Enum.chunk_every(2, 1, :discard)
+    |> Enum.map(fn [x, y] -> y - x end)
+    |> Enum.reduce_while(0, fn x, acc -> if x > 0, do: {:cont, acc + x}, else: {:cont, acc} end)
   end
+
+  Measurements.increased_by([100, 150, 120, 130])
 
   @doc """
   Find the average of a list of numbers.
@@ -114,7 +131,10 @@ defmodule Measurements do
     6
   """
   def average(measurements) do
+    Enum.sum(measurements) / Enum.count(measurements)
   end
+
+  Measurements.average([4, 5, 6])
 end
 ```
 
