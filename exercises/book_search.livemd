@@ -22,6 +22,8 @@ Represent each book as a `Book` struct with `title` and `content` keys. Then cre
 
 ```elixir
 defmodule Book do
+  defstruct [:title, :content]
+
   @moduledoc """
   Documentation for `Book`.
 
@@ -59,8 +61,18 @@ defmodule Book do
     [%Book{title: "ABC"}]
   """
   def search(books, query) do
+    for books <- books, query == query do
+    end
   end
 end
+```
+
+```elixir
+book1 = %Book{title: "A", content: "content1"}
+book2 = %Book{title: "def", content: "content2"}
+book3 = %Book{title: "GHI", content: "content3"}
+
+Book.search([book1, book2, book3], "A")
 ```
 
 ## Commit Your Progress

@@ -57,7 +57,16 @@ end
 Enter your solution below.
 
 ```elixir
+names = ["Clifford", "Zoboomafoo", "Leonardo"]
+animal_types = ["dog", "lemur", "turtle"]
+ages = 1..14
 
+solution =
+  for names <- names, animal_types <- animal_types, ages <- ages do
+    %{name: names, animal_type: animal_types, age: ages}
+  end
+
+Enum.count(solution)
 ```
 
 ## Commit Your Progress

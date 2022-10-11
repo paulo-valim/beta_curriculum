@@ -184,7 +184,7 @@ The comprehension will filter out all values that do not return `true` for the f
 ```elixir
 for n <- 1..100, rem(n, 3) === 0 do
   n
-end
+en
 ```
 
 We can use multiple comma-separated filters.
