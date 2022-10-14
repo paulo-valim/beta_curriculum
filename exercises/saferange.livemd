@@ -155,6 +155,7 @@ defmodule SafeRange do
     []
   """
   def range(first, last, step \\ DEFAULT) do
+    Enum.to_list(first..last//step)
   end
 
   @doc """
@@ -181,8 +182,15 @@ defmodule SafeRange do
         iex: SafeRange.range!/3
   """
   def range!(first, last, step \\ DEFAULT) do
+    cond do
+      step < 0 and first < last -> raise "don't be crazy, #{step} is Invalid"
+      step > 0 and last < first -> raise "#{last} cannot be smaller than #{first}"
+      true -> Enum.to_list(first..last//step)
+    end
   end
 end
+
+SafeRange.range!(5, 1, 1)
 ```
 
 <details style="background-color: lightgreen; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">

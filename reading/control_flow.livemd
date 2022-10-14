@@ -568,3 +568,7 @@ $ git commit -m "finish control flow section"
 | Previous                                 | Next                                                 |
 | ---------------------------------------- | ---------------------------------------------------: |
 | [Functions](../reading/functions.livemd) | [Naming Numbers](../exercises/naming_numbers.livemd) |
+
+```elixir
+d
+```
