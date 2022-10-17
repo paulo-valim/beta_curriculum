@@ -39,7 +39,7 @@ Integer.digits(123)
 In the Elixir cell below, convert the integer `4389` into a list of digits.
 
 ```elixir
-
+Integer.digits(4389)
 ```
 
 ### Undigits
