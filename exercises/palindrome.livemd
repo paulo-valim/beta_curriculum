@@ -70,6 +70,31 @@ defmodule Palindrome do
     false
   """
   def palindrome?(string) do
+    rev = string   
+    |> String.split("", trim: true)
+    |> Enum.reverse()
+    |> Enum.join()
+    if rev === string 
+      do true 
+      else "is not a palindrome" 
+    end
+end
+
+Palindrome.palindrome?("apples")
+```
+
+```elixir
+def palindrome?(string) do
+  rev =
+    string
+    |> String.split("", trim: true)
+    |> Enum.reverse()
+    |> Enum.join()
+
+  if rev === string do
+    true
+  else
+    "is not a palindrome"
   end
 end
 ```
