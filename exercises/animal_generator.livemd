@@ -57,7 +57,43 @@ end
 Enter your solution below.
 
 ```elixir
+names = ["Clifford", "Zoboomafoo", "Leonardo"]
+animal_types = ["dog", "lemur", "turtle"]
+ages = 1..14
 
+map =
+  for name <- names,
+      animal <- animal_types,
+      age <- ages,
+      do: %{name: name, animal_types: animal, age: age}
+
+Enum.count(map)
+```
+
+```elixir
+names = ["Clifford", "Zoboomafoo", "Leonardo"]
+animal_types = ["dog", "lemur", "turtle"]
+ages = 1..14
+
+Enum.count(
+  for name <- names,
+      animal <- animal_types,
+      age <- ages,
+      do: %{name: name, animal_types: animal, age: age}
+)
+```
+
+```elixir
+names = ["Clifford", "Zoboomafoo", "Leonardo"]
+animal_types = ["dog", "lemur", "turtle"]
+ages = 1..14
+
+for name <- names,
+    animal <- animal_types,
+    age <- ages,
+    do:
+      %{name: name, animal_types: animal, age: age}
+      |> Enum.count()
 ```
 
 ## Commit Your Progress
