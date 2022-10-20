@@ -67,6 +67,14 @@ defmodule Anagram do
     true
   """
   def anagram?(string1, string2) do
+    ordered_char1 = Enum.sort(String.split(string1, "", trim: true))
+    ordered_char2 = Enum.sort(String.split(string2, "", trim: true))
+
+    if ordered_char1 == ordered_char2 do
+      true
+    else
+      "it's not an anagram"
+    end
   end
 
   @doc """
@@ -84,8 +92,20 @@ defmodule Anagram do
     []
   """
   def filter_anagrams(word_list, anagram) do
+    ordered_string_list =
+      Enum.map(
+        word_list,
+        fn each -> Enum.sort(String.split(each, "", trim: true)) end
+      )
+
+    Enum.filter(
+      ordered_string_list,
+      fn word -> word === Enum.sort(String.split(anagram, "", trim: true)) end
+    )
   end
 end
+
+Anagram.filter_anagrams(["stop"], "go")
 ```
 
 ## Bonus: Anagram Solver
@@ -113,8 +133,16 @@ defmodule Anagram do
     ["abc", "acb", "bac", "bca", "cab", "cba"]
   """
   def solve(string) do
+    ordered_char = Enum.sort(String.split(string, "", trim: true))
+    IO.inspect(ordered_char)
+
+    for x <- ordered_char, y <- tl(ordered_char) do
+      x <> y
+    end
   end
 end
+
+Anagram.solve("abc")
 ```
 
 ## Commit Your Progress

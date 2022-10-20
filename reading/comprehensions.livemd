@@ -350,7 +350,7 @@ Enum.reduce(["a", "b", "c"], fn each, acc -> acc <> each end)
 ```
 
 ```elixir
-
+for e["a", "b", "c"]
 ```
 
 In the Elixir cell below, convert the following nested `Enum.map` into a comprehension with three generators.
