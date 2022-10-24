@@ -86,7 +86,124 @@ Enter a give letter word: tarts
 [:green, :yellow, :grey, :yellow, :yellow]
 ```
 
-<!-- livebook:{"break_markdown":true} -->
+```elixir
+answer = String.split("aazxx", "", trim: true)
+guess = String.split("aajax", "", trim: true)
+IO.inspect(answer)
+IO.inspect(guess)
+map_guess = Enum.sort(Enum.frequencies(guess))
+IO.inspect(map_guess)
+map_answer = Enum.sort(Enum.frequencies(answer))
+IO.inspect(map_answer)
+IO.inspect(Enum.at(map_guess, 4) <= Enum.at(map_answer, 4))
+
+for each <- guess do
+  Enum.member?(answer, each)
+end
+```
+
+```elixir
+answer = String.split("aazex", "", trim: true)
+guess = String.split("aazya", "", trim: true)
+
+result =
+  for each <- guess do
+    Enum.member?(answer, each)
+  end
+
+map_guess = Enum.sort(Enum.frequencies(guess))
+map_answer = Enum.sort(Enum.frequencies(answer))
+
+for x <- 0..4 do
+  cond do
+    Enum.at(answer, x) != Enum.at(guess, x) and Enum.at(result, x) == true -> :yellow
+    Enum.at(answer, x) == Enum.at(guess, x) -> :green
+    Enum.at(result, x) == false -> :grey
+  end
+end
+```
+
+```elixir
+defmodule WordleTest do
+  use ExUnit.Case
+
+  test "feedback/2 all green" do
+    assert Games.Wordle.feedback("aaaaa", "aaaaa") ==
+             [:green, :green, :green, :green, :green]
+
+    assert Games.Wordle.feedback("koala", "koala") ==
+             [:green, :green, :green, :green, :green]
+  end
+
+  test "feedback/2 all grey" do
+    assert Games.Wordle.feedback("lapse", "quick") ==
+             [:grey, :grey, :grey, :grey, :grey]
+  end
+
+  test "feedback/2 all yellow" do
+    assert Games.Wordle.feedback("lapse", "alsep") ==
+             [:yellow, :yellow, :yellow, :yellow, :yellow]
+  end
+
+  test "feedback/2 3 greens 2 yellows" do
+    assert Games.Wordle.feedback("lapse", "lapes") ==
+             [:green, :green, :green, :yellow, :yellow]
+  end
+
+  test "feedback/2 4 grays 1 yellow" do
+    assert Games.Wordle.feedback("lapse", "xzwts") ==
+             [:grey, :grey, :grey, :grey, :yellow]
+  end
+
+  test "feedback/2 3 grays 2 yellows" do
+    assert Games.Wordle.feedback("lapse", "xzwas") ==
+             [:grey, :grey, :grey, :yellow, :yellow]
+  end
+
+  test "feedback/2 3 greens 2 grays" do
+    assert Games.Wordle.feedback("lapse", "lapzq") ==
+             [:green, :green, :green, :grey, :grey]
+  end
+
+  test "feedback/2 2 greens 2 yellows 1 gray" do
+    assert Games.Wordle.feedback("lapse", "laspw") ==
+             [:green, :green, :yellow, :yellow, :grey]
+  end
+
+  test "feedback/2 excess match letters are grey" do
+    assert Games.Wordle.feedback("aaaxx", "aaaax") ==
+             [:green, :green, :green, :grey, :green]
+  end
+end
+```
+
+```elixir
+defmodule Games.Wordle do
+  def feedback(answer, guess) when answer == guess do
+    [:green, :green, :green, :green, :green]
+  end
+
+  def feedback(answer, guess) do
+    answer = String.split(answer, "", trim: true)
+    guess = String.split(guess, "", trim: true)
+
+    result =
+      for each <- guess do
+        Enum.member?(answer, each)
+      end
+
+    word_length = length(guess) - 1
+
+    for x <- 0..word_length do
+      cond do
+        Enum.at(answer, x) != Enum.at(guess, x) and Enum.at(result, x) == true -> :yellow
+        Enum.at(answer, x) == Enum.at(guess, x) -> :green
+        Enum.at(result, x) == false -> :grey
+      end
+    end
+  end
+end
+```
 
 ### Bonus: Six Guesses
 
