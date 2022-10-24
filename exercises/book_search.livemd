@@ -30,6 +30,7 @@ defmodule Book do
     iex> %Book{title: "My Book Title"}
     %Book{title: "My Book Title"}
   """
+  defstruct title: "My Book Title", content: "Once upon a time"
 
   @doc """
   Search a list of Book structs. Search should match any book that includes the
@@ -58,9 +59,24 @@ defmodule Book do
     iex> Book.search([%Book{title: "ABC"}], "a")
     [%Book{title: "ABC"}]
   """
+
   def search(books, query) do
+    Enum.filter(
+      books,
+      fn books ->
+        String.contains?(String.downcase(books.title), String.downcase(query))
+      end
+    )
   end
 end
+```
+
+```elixir
+book1 = %Book{title: "A", content: "Z"}
+book2 = %Book{title: "ABC", content: "XYZ"}
+book3 = %Book{title: "DEF", content: "MNO"}
+
+Book.search([book1, book2, book3], "a")
 ```
 
 ## Commit Your Progress
