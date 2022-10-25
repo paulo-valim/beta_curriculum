@@ -196,7 +196,7 @@ The `Greeting` module is now available in the current [IEx](https://hexdocs.pm/i
 
 ```elixir
 iex> Greeting.hello()
-"Hello, world!"
+"Hello, world! 2"
 ```
 
 The `iex` command also accepts a filename as an argument to load a file into the IEx shell.
