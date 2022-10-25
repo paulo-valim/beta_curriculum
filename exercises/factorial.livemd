@@ -69,9 +69,23 @@ defmodule Factorial do
     iex> Factorial.of(10)
     3628800
   """
+  def of(n) when n == 1 do
+    IO.inspect("calculating 1*")
+    1
+  end
+
+  def of(n) when n == 2 do
+    IO.inspect("calculating 2**")
+    2
+  end
+
   def of(n) do
+    IO.inspect("calculating #{n}")
+    n * of(n - 1)
   end
 end
+
+Factorial.of(5)
 ```
 
 ## Commit Your Progress
