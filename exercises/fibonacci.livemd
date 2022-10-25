@@ -86,12 +86,26 @@ defmodule Fibonacci do
     iex> Fibonacci.of(7)
     8
 
-    iex> FIbonacci.of(20)
+    iex> Fibonacci.of(20)
     4181
   """
+  def of(n) when n == 1 do
+    IO.inspect("calculating 1*")
+    0
+  end
+
+  def of(n) when n == 2 do
+    IO.inspect("calculating 2**")
+    1
+  end
+
   def of(n) do
+    IO.inspect("calculating #{n}")
+    of(n - 1) + of(n - 2)
   end
 end
+
+Fibonacci.of(6)
 ```
 
 ## Commit Your Progress
