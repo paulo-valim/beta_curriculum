@@ -66,3 +66,7 @@ $ git commit -m "finish games documentation and static analysis exercise"
 | Previous                                               | Next                                     |
 | ------------------------------------------------------ | ---------------------------------------: |
 | [Typespec Drills](../exercises/typespec_drills.livemd) | [Protocols](../reading/protocols.livemd) |
+
+<!-- livebook:{"break_markdown":true} -->
+
+ix

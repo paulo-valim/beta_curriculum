@@ -202,7 +202,7 @@ defmodule FunctionSpecs do
     div(integer1, integer2)
   end
 
-  @spec concat(string(), string()) :: string()
+  @spec concat(String.t(), String.t()) :: String.t()
   def concat(string1, string2) do
     string1 <> string2
   end
