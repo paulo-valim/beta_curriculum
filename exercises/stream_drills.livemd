@@ -24,13 +24,17 @@ This set of drills is for [Streams](../reading/streams.livemd) follow the instru
 Use [Stream.map/2](https://hexdocs.pm/elixir/Stream.html#map/2) to double elements in a range from `1..10`, then use [Enum.to_list/1](https://hexdocs.pm/elixir/Enum.html#to_list/1) to convert the resulting stream into a list `[2, 4, 6, 8, 10, 12, 14, 16, 18, 20]`
 
 ```elixir
-
+1..10
+|> Stream.map(fn x -> x * 2 end)
+|> Enum.to_list()
 ```
 
 Use [Stream.map/2](https://hexdocs.pm/elixir/Stream.html#map/2) and [Enum.to_list/1](https://hexdocs.pm/elixir/Enum.html#to_list/1) to sum a list of tuple pairs `[{1, 1}, {2, 2}, {3, 3}]` into `[2, 4, 6]`.
 
 ```elixir
-
+[{1, 1}, {2, 2}, {3, 3}]
+|> Stream.map(fn {a, b} -> a + b end)
+|> Enum.to_list()
 ```
 
 ## Stream.filter/2
@@ -38,13 +42,16 @@ Use [Stream.map/2](https://hexdocs.pm/elixir/Stream.html#map/2) and [Enum.to_lis
 Use [Stream.filter/2](https://hexdocs.pm/elixir/Stream.html#filter/2) and [Enum.to_list/1](https://hexdocs.pm/elixir/Enum.html#to_list/1) to filter even numbers from a range `1..10` to return `[2, 4, 6, 8, 10]`.
 
 ```elixir
-
+1..10
+|> Enum.filter(fn x -> rem(x, 2) == 0 end)
 ```
 
 Use [Stream.filter/2](https://hexdocs.pm/elixir/Stream.html#filter/2) and [Enum.to_list/1](https://hexdocs.pm/elixir/Enum.html#to_list/1) to filter numbers greater than `5` from a range `1..10` to return `[6, 7, 8, 9, 10]`.
 
 ```elixir
-
+1..10
+|> Stream.filter(fn x -> x > 5 end)
+|> Enum.to_list()
 ```
 
 ## Stream.cycle/1
@@ -52,13 +59,15 @@ Use [Stream.filter/2](https://hexdocs.pm/elixir/Stream.html#filter/2) and [Enum.
 Use [Stream.cycle/1](https://hexdocs.pm/elixir/Stream.html#cycle/1) with [Enum.take/2](https://hexdocs.pm/elixir/Enum.html#take/2) to generate the list `[1, 2, 3, 1, 2, 3, 1, 2, 3]`.
 
 ```elixir
-
+Stream.cycle([1, 2, 3])
+|> Enum.take(9)
 ```
 
 Use [Stream.cycle/1](https://hexdocs.pm/elixir/Stream.html#cycle/1) with [Enum.take/2](https://hexdocs.pm/elixir/Enum.html#take/2) to generate the list `["a", "b", "a", "b"]`
 
 ```elixir
-
+Stream.cycle(["a", "b"])
+|> Enum.take(4)
 ```
 
 ## Stream.iterate/2
@@ -66,19 +75,22 @@ Use [Stream.cycle/1](https://hexdocs.pm/elixir/Stream.html#cycle/1) with [Enum.t
 Use [Stream.iterate/2](https://hexdocs.pm/elixir/Stream.html#iterate/2) and [Enum.take/2](https://hexdocs.pm/elixir/Enum.html#take/2) to generate a list of numbers from `1` to `10`.
 
 ```elixir
-
+Stream.iterate(1, fn x -> x + 1 end)
+|> Enum.take(10)
 ```
 
 Use [Stream.iterate/2](https://hexdocs.pm/elixir/Stream.html#iterate/2) and [Enum.take/2](https://hexdocs.pm/elixir/Enum.html#take/2) to generate a list of negative numbers from `0` to `-10`.
 
 ```elixir
-
+Stream.iterate(0, fn x -> x - 1 end)
+|> Enum.take(11)
 ```
 
 Use [Stream.iterate/2](https://hexdocs.pm/elixir/Stream.html#iterate/2) and [Enum.take/2](https://hexdocs.pm/elixir/Enum.html#take/2) to generate a list of `1` to `10` to the power of 2 by multiplying each accumulator by 2. i.e. $1^2, 2^2, 3^2$
 
 ```elixir
-
+Stream.iterate(10, fn acc -> acc * 2 end)
+|> Enum.take(10)
 ```
 
 ## Stream.unfold/2
@@ -86,19 +98,26 @@ Use [Stream.iterate/2](https://hexdocs.pm/elixir/Stream.html#iterate/2) and [Enu
 Use [Stream.unfold/2](https://hexdocs.pm/elixir/Stream.html#unfold/2) and [Enum.take/2](https://hexdocs.pm/elixir/Enum.html#take/2) to generate a list of `10` cubed numbers. i.e. $1^2, 2^2, 3^2$
 
 ```elixir
+Stream.unfold(acc(), (fn acc() -> {elem(), acc()}))
+```
 
+```elixir
+Stream.unfold(1, fn acc -> {acc ** 3, acc + 1} end)
+|> Enum.take(10)
 ```
 
 Use [Stream.unfold/2](https://hexdocs.pm/elixir/Stream.html#unfold/2) and [Enum.take/2](https://hexdocs.pm/elixir/Enum.html#take/2) to generate a list of `5` integers as strings. `["1", "2", "3", "4", "5"]`.
 
 ```elixir
-
+Stream.unfold(1, fn acc -> {"#{acc}", acc + 1} end)
+|> Enum.take(5)
 ```
 
 Use [Stream.unfold/2](https://hexdocs.pm/elixir/Stream.html#unfold/2) and [Enum.take/2](https://hexdocs.pm/elixir/Enum.html#take/2) to generate a list of integers from `1` to `10` divided by `2`.
 
 ```elixir
-
+Stream.unfold(1, fn acc -> {acc / 2, acc + 1} end)
+|> Enum.take(10)
 ```
 
 ## Stream.chunk_every/2
