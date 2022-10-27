@@ -113,7 +113,25 @@ Pascal.of(5)
 ```
 
 ```elixir
+defmodule Pascal do
+  def of(1), do: [[1]]
+  def of(2), do: [[1], [1, 1]]
 
+  def of(n) do
+    1..n
+    |> IO.inspect()
+    |> Enum.chunk_every(2, 1, :discard)
+    |> IO.inspect()
+    |> Enum.map(fn [a, b] -> a + b end)
+  end
+end
+
+Pascal.of(5)
+```
+
+```elixir
+list = [1, 4, 6, 4, 1]
+Enum.chunk_every(list, 2, 1)
 ```
 
 ## Commit Your Progress
