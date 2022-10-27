@@ -125,16 +125,25 @@ Stream.unfold(1, fn acc -> {acc / 2, acc + 1} end)
 Use [Stream.chunk_every/2](https://hexdocs.pm/elixir/Stream.html#chunk_every/2) with [Enum.to_list/1](https://hexdocs.pm/elixir/Enum.html#to_list/1) to chunk `[1, 1, 2, 2, 3, 3]` into `[[1, 1], [2, 2], [3, 3], [4, 4]]`
 
 ```elixir
-
+Stream.chunk_every([1, 1, 2, 2, 3, 3], 2)
+|> Enum.to_list()
 ```
 
 Use [Stream.chunk_every/2](https://hexdocs.pm/elixir/Stream.html#chunk_every/2) to chunk `[1, 1, 1, 2, 2, 2]` into `[[1, 1, 1], [2, 2, 2]]`
 
 ```elixir
-
+Stream.chunk_every([1, 1, 1, 2, 2, 2], 3)
+|> Enum.to_list()
 ```
 
 Use [Stream.chunk_every/2](https://hexdocs.pm/elixir/Stream.html#chunk_every/2) to chunk `[1, 2, 2, 1, 4, 4]` into pairs, then use [Stream.map/2](https://hexdocs.pm/elixir/Stream.html#map/2) to sum the pairs together to make `[3, 3, 8]`.
+
+```elixir
+Stream.chunk_every([1, 2, 2, 1, 4, 4], 2)
+|> Enum.to_list()
+|> Stream.map(fn [a, b] -> a + b end)
+|> Enum.to_list()
+```
 
 ## Commit Your Progress
 
