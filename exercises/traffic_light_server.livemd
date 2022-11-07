@@ -116,6 +116,28 @@ Implement the `TrafficLightServer` as documented below. You will also need to de
 
 ```elixir
 defmodule TrafficLightServer do
+  use GenServer
+
+  @impl true
+  def init(_opts) do
+    {:ok, :green}
+  end
+
+  @impl true
+  def handle_call(:current_light, _from, state) do
+    new_state = state
+    response = new_state
+    {:reply, response, new_state}
+  end
+
+  @impl true
+  def handle_call(:transition, _from, state) do
+    transition = %{:green => :yellow, :yellow => :red, :red => :green}
+    new_state = transition[state]
+    response = new_state
+    {:reply, response, new_state}
+  end
+
   @moduledoc """
   Documentation for `TrafficLightServer`
   """
@@ -128,7 +150,8 @@ defmodule TrafficLightServer do
       iex> TrafficLightServer.start_link()
       {:ok, pid}
   """
-  def start_link(opts) do
+  def start_link(_opts) do
+    GenServer.start_link(TrafficLightServer, [])
   end
 
   @doc """
@@ -145,6 +168,7 @@ defmodule TrafficLightServer do
       :green
   """
   def transition(pid) do
+    GenServer.call(pid, :transition)
   end
 
   @doc """
@@ -157,8 +181,31 @@ defmodule TrafficLightServer do
       :green
   """
   def current_light(pid) do
+    GenServer.call(pid, :current_light)
   end
 end
+```
+
+```elixir
+{:ok, pid} = GenServer.start_link(TrafficLightServer, [])
+
+:green = GenServer.call(pid, :current_light)
+```
+
+```elixir
+GenServer.call(pid, :transition)
+```
+
+```elixir
+{:ok, pid} = TrafficLightServer.start_link([])
+```
+
+```elixir
+:green = TrafficLightServer.current_light(pid)
+```
+
+```elixir
+TrafficLightServer.transition(pid)
 ```
 
 ## Bonus: TrafficGrid
