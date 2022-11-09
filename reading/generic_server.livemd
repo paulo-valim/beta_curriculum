@@ -620,6 +620,23 @@ defmodule CounterSingleton do
 end
 ```
 
+```elixir
+ @impl true
+  def handle_call(:current_light, _from, state) do
+    new_state = state
+    response = new_state
+    {:reply, response, new_state}
+  end
+
+  @impl true
+  def handle_call(:transition, _from, state) do
+    transition = %{:green => :yellow, :yellow => :red, :red => :green}
+    new_state = transition[state]
+    response = new_state
+    {:reply, response, new_state}
+  end(:)
+```
+
 Now we can start the named process using `CounterSingleton.start_link/1`.
 
 ```elixir

@@ -333,6 +333,34 @@ Implement the `TrafficGrid` module as documented below. You will also have to de
 defmodule TrafficGridServer do
   use GenServer
 
+  def start_link(_opts) do
+    GenServer.start_link(__MODULE__, [])
+  end
+
+  def transition(grid_pid) do
+    GenServer.call(grid_pid, :transition)
+  end
+
+  def current_light(grid_pid) do
+    GenServer.call(grid_pid, :current_lights)
+  end
+
+  @impl true
+  def init(_opts) do
+    light_
+    {:ok, :green}
+  end
+
+  @impl true
+  def handle_call(:current_light, _from, state) do
+    new_state = state
+    reponse = new_state
+    {:reply, response, new_state}
+  end
+
+  def trafficGrid do
+  end
+
   @doc """
   Start the `TrafficGridServer`.
 
