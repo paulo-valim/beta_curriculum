@@ -32,7 +32,7 @@ defmodule SlowServer do
   @impl true
   def handle_call(:sleep, _from, state) do
     IO.puts("Starting sleep")
-    Process.sleep(1000)
+    Process.sleep(2000)
     IO.puts("Ending sleep")
     {:reply, "response!", state}
   end
@@ -72,7 +72,7 @@ defmodule Counter do
   @impl true
   def handle_cast(:increment, state) do
     IO.puts("count: #{state + 1}")
-    Process.sleep(1000)
+    Process.sleep(3000)
     {:noreply, state + 1}
   end
 end
