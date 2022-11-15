@@ -126,7 +126,26 @@ end
 </details>
 
 ```elixir
+defmodule Journal do
+  use GenServer
 
+  @impl true
+  def init(_opt) do
+    {:ok, []}
+  end
+
+  @impl true
+  def handle_cast({:add_entry, message}, list) do
+    {:noreply, [message | list]}
+  end
+end
+
+{:ok, journal_pid} = GenServer.start_link(Journal, [])
+```
+
+```elixir
+GenServer.cast(journal_pid, {:add_entry, "second entry"})
+:sys.get_state(journal_pid)
 ```
 
 ## Process
