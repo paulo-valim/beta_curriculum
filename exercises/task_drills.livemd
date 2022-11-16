@@ -53,7 +53,7 @@ Task.await(task, 7000)
 Use [Task.async/1](https://hexdocs.pm/elixir/Task.html#async/1) and [Task.yield/2](https://hexdocs.pm/elixir/Task.html#yield/2) to spawn a task process that returns any response.
 
 ```elixir
-task = Task.async(fn -> IO.inspect("ny response") end)
+task = Task.async(fn -> IO.inspect("any response") end)
 
 Task.yield(task)
 ```
@@ -127,10 +127,19 @@ tasks = Enum.map(1..100, fn x -> Task.async(fn -> x * 2 end) end)
 Task.await_many(tasks)
 ```
 
+```elixir
+list = ["apple", "pear", "peaches"]
+
+Enum.map(list, fn each -> String.upcase(each) end)
+```
+
 Use [Enum.map/2](https://hexdocs.pm/elixir/Enum.html#map/2), [Task.async/1](https://hexdocs.pm/elixir/Task.html#async/1), [String.upcase/2](https://hexdocs.pm/elixir/String.html#upcase/2), and [Task.await_many/2](https://hexdocs.pm/elixir/Task.html#await_many/2) to concurrently capitalize every string in the list `["apple", "pear", "peaches"]`
 
 ```elixir
+list = ["apple", "pear", "peaches"]
+tasks = Enum.map(list, fn each -> Task.async(fn -> String.upcase(each) end) end)
 
+task.await_many(tasks)
 ```
 
 ## Task.Supervisor
@@ -148,13 +157,27 @@ Supervisor.start_link(children, strategy: :one_for_one)
 Use `Task.Supervisor.async/3` and [Task.await/2](https://hexdocs.pm/elixir/Task.html#await/2) to start a supervised task process that returns a random number after sleeping for two seconds.
 
 ```elixir
+tasks =
+  Task.Supervisor.async(MyTaskSupervisor, fn ->
+    Process.sleep(2000)
+    Enum.random(1..1000)
+  end)
 
+Task.await(tasks)
 ```
 
 Use [Enum.map/2](https://hexdocs.pm/elixir/Enum.html#map/2), `Task.Supervisor.async/3` and [Task.await_many/2](https://hexdocs.pm/elixir/Task.html#await_many/2) to start one hundred supervised task processes that returns a list of doubled numbers from one `1..100`. i.e. `[2, 4, 6, 8, ..., 198, 200]`.
 
 ```elixir
+tasks =
+  Enum.map(1..100, fn x ->
+    Task.Supervisor.async(
+      MyTaskSupervisor,
+      fn -> x * 2 end
+    )
+  end)
 
+Task.await_many(tasks)
 ```
 
 Use `Task.Supervisor.start_child/3` to start a `:temporary` task that crashes after five seconds. `:temporary` is already the default `:restart` option.
@@ -162,7 +185,15 @@ Use `Task.Supervisor.start_child/3` to start a `:temporary` task that crashes af
 Use [Supervisor.which_children/1](https://hexdocs.pm/elixir/Supervisor.html#which_children/1) after six seconds to demonstrate that a `:temporary` process is not restarted.
 
 ```elixir
+{:ok, pid} =
+  Task.Supervisor.start_child(MyTaskSupervisor, fn ->
+    Process.sleep(5000)
+    2 + 2
+  end)
 
+Process.sleep(6000)
+
+Supervisor.which_children(MyTaskSupervisor)
 ```
 
 Use `Task.Supervisor.start_child/3` with the `restart: :transient` option to start a `:transient` task that crashes after five seconds.
@@ -170,7 +201,17 @@ Use `Task.Supervisor.start_child/3` with the `restart: :transient` option to sta
 Use [Supervisor.which_children/1](https://hexdocs.pm/elixir/Supervisor.html#which_children/1) after six seconds to demonstrate that the `:transient` process is restarted.
 
 ```elixir
+{:ok, pid} =
+  Task.Supervisor.start_child(
+    MyTaskSupervisor,
+    fn ->
+      Process.sleep(5000)
+      2 + 2
+    end,
+    restart: :transient
+  )
 
+Supervisor.which_children(MyTaskSupervisor)
 ```
 
 ## Commit Your Progress
