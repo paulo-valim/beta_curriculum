@@ -188,7 +188,7 @@ list = [2, 3]
 In the Elixir cell below, prepend `"hello"` to the list `["world"]` to make `["hello", "world"]`
 
 ```elixir
-
+["hello" | ["world"]]
 ```
 
 ## Pattern Matching Lists
@@ -302,7 +302,8 @@ Bind `1` and `2`, and `3` in the following list to variables `a`, `b`, and `c` u
 Enter your solution below.
 
 ```elixir
-[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+[a, b, c | tail] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+[a, b, c]
 ```
 
 ## Further Reading
