@@ -211,6 +211,8 @@ Use [Supervisor.which_children/1](https://hexdocs.pm/elixir/Supervisor.html#whic
     restart: :transient
   )
 
+Process.sleep(6000)
+
 Supervisor.which_children(MyTaskSupervisor)
 ```
 
