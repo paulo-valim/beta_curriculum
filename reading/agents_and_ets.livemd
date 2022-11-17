@@ -146,8 +146,19 @@ secret identities.
 :ets.insert(:super_heros, {"Spider Man", "Peter Parker"})
 ```
 
-```elixir
+<!-- livebook:{"break_markdown":true} -->
 
+<p style="background-color: lightblue; padding: 1rem; margin: 1rem 0;">
+Why I cannot see the table using the :named_table?
+How can I see it?
+</p>
+
+```elixir
+:ets.new(:super_heros, [:named_table])
+```
+
+```elixir
+:ets.insert(:super_heros, {"Spider Man", "Peter Parker"})
 ```
 
 ## ETS Configuration
@@ -266,7 +277,13 @@ end)
 </details>
 
 ```elixir
+table = :ets.new(:example, [:protected, :ordered_set])
 
+:ets.insert(table, {:key3, "2value"})
+
+:ets.insert(table, {:key2, "1value"})
+
+table
 ```
 
 ## Race Conditions
@@ -366,7 +383,7 @@ defmodule SlowFib do
   end
 end
 
-SlowFib.of(6)
+SlowFib.of(10)
 ```
 
 We can improve performance by saving each input/output in a cache so we don't have to re-compute the same values over and over. You can think of this cache as a table of inputs and outputs. For each input, we store the computed output rather than re-performing the calculation.
@@ -446,7 +463,7 @@ defmodule CachedFib do
   end
 end
 
-CachedFib.of(50)
+CachedFib.of(100_000)
 ```
 
 ### Your Turn

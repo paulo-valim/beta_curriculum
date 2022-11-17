@@ -75,6 +75,7 @@ defmodule Inventory do
       true
   """
   def new() do
+    :ets.new(:inventory, [])
   end
 
   @doc """
@@ -87,6 +88,7 @@ defmodule Inventory do
       0
   """
   def get_quantity(ref, item) do
+    :ets.lookup(ref, item)
   end
 
   @doc """
@@ -100,8 +102,13 @@ defmodule Inventory do
       true
   """
   def store(ref, item, quantity) do
+    :ets.insert(ref, {item, quantity})
   end
 end
+
+ref = Inventory.new()
+Inventory.store(ref, :apple, 5)
+Inventory.get_quantity(ref, :apple)
 ```
 
 ## Bonus: Warehouse

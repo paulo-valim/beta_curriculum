@@ -69,7 +69,8 @@ defmodule Journal do
 
       iex> {:ok, pid} = Journal.start_link(entries: ["Entry1", "Entry 2"])
   """
-  def start_link(_opts) do
+  def start_link(start) do
+    Agent.start_link(fn -> start end)
   end
 
   @doc """
@@ -101,7 +102,8 @@ defmodule Journal do
       iex> Journal.all_entries(pid, order: :desc)
       ["Entry 2", "Entry 1"]
   """
-  def all_entries(pid, opts \\ []) do
+  def all_entries(journal_pid, _opts \\ []) do
+    Agent.get(journal_pid, fn state -> state end)
   end
 
   @doc """
@@ -117,9 +119,15 @@ defmodule Journal do
     iex> Journal.all_entries(pid)
     ["Entry 1", "Entry 2"]
   """
-  def add_entry(pid, entry) do
+  def add_entry(journal_pid, entry) do
+    Agent.update(journal_pid, fn state -> [entry | state] end)
   end
 end
+
+{:ok, journal_pid} = Journal.start_link([])
+Journal.add_entry(journal_pid, ["Entry 1"])
+Journal.add_entry(journal_pid, ["Entry 2"])
+Journal.all_entries(journal_pid)
 ```
 
 ## Bonus: Advanced Journal
@@ -214,6 +222,12 @@ defmodule AdvancedJournal do
   """
   use Agent
 
+  defstruct id: 0,
+            title: "Title",
+            content: "Content",
+            created_at: DateTime.utc_now(),
+            updated_at: DateTime.utc_now()
+
   @doc """
   Start the Agent process
 
@@ -227,7 +241,8 @@ defmodule AdvancedJournal do
 
       iex> {:ok, pid} = AdvancedJournal.start_link(entries: [%{title: "Entry 1", content: "Entry 1 Content"}])
   """
-  def start_link(opts) do
+  def start_link(start) do
+    Agent.start_link(fn -> start end)
   end
 
   @doc """
@@ -278,7 +293,8 @@ defmodule AdvancedJournal do
       ..>  %{id: 0, title: "Entry 1", content: "Entry 1", created_at: _, updated_at: _},
       ..>] = AdvancedJournal.all_entries(pid, order: :desc)
   """
-  def all_entries(pid, opts \\ []) do
+  def all_entries(journal_pid, _opts \\ []) do
+    Agent.get(journal_pid, fn state -> state end)
   end
 
   @doc """
@@ -303,7 +319,13 @@ defmodule AdvancedJournal do
       ..>  %{id: 1, title: "Entry 2", content: "Entry 2", created_at: _, updated_at: _},
       ..>] = AdvancedJournal.all_entries(pid)
   """
-  def add_entry(pid, attrs) do
+  def add_entry(journal_pid, attrs) do
+    Agent.get(journal_pid, fn state ->
+      last_entry = hd(state)
+      IO.inspect(last_entry.id)
+    end)
+
+    Agent.update(journal_pid, fn state -> [attrs | state] end)
   end
 
   @doc """
@@ -316,7 +338,7 @@ defmodule AdvancedJournal do
       iex> AdvancedJournal.update_entry(pid, 0, %{title: "Updated Title", content: "Updated Content"})
       iex> [%{id: 0, title: "Updated Title", content: "Updated Content", created_at: _, updated_at: _}] = AdvancedJournal.all_entries(pid)
   """
-  def update_entry(pid, id, attrs) do
+  def update_entry(journal_pid, id, attrs) do
   end
 
   @doc """
@@ -328,9 +350,32 @@ defmodule AdvancedJournal do
       iex> AdvancedJournal.delete_entry(pid, 0)
       iex> []
   """
-  def delete_entry(pid, id, attrs) do
+  def delete_entry(journal_pid, id, attrs) do
   end
 end
+
+{:ok, journal_pid} =
+  AdvancedJournal.start_link([
+    %AdvancedJournal{
+      id: 0,
+      title: "Snakes on the plane",
+      content: "I have had it with these motherf—— snakes on this motherf—— plane."
+    }
+  ])
+```
+
+```elixir
+AdvancedJournal.add_entry(journal_pid, %AdvancedJournal{
+  title: "Snakes on the plane",
+  content: "I have had it with these motherf—— snakes on this motherf—— plane."
+})
+
+AdvancedJournal.add_entry(journal_pid, %AdvancedJournal{
+  title: "Minions",
+  content: "Tu es bela como una papaya!"
+})
+
+AdvancedJournal.all_entries(journal_pid)
 ```
 
 ## Commit Your Progress
