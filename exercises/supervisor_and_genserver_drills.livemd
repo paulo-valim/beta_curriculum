@@ -248,7 +248,7 @@ State.set(pid, "updated state")
 </details>
 
 ```elixir
-defmodule State2 do
+defmodule State do
   use GenServer
 
   @impl true
@@ -256,22 +256,35 @@ defmodule State2 do
     {:ok, input}
   end
 
+  @impl true
+  def handle_cast({:set, new_input}, input) do
+    state = "#{input} #{new_input}"
+    {:noreply, state}
+  end
+
+  @impl true
+  def handle_call(:get, _from, state) do
+    {:reply, state, state}
+  end
+
   def start_link(input) do
-    IO.inspect(GenServer.start_link(__MODULE__, input, name: __MODULE__))
+    GenServer.start_link(__MODULE__, input, name: __MODULE__)
+  end
+
+  def set(__MODULE__, new_input) do
+    GenServer.cast(__MODULE__, {:set, new_input})
+  end
+
+  def get(__MODULE__) do
+    GenServer.call(__MODULE__, :get)
   end
 end
 
-{:ok, pid_s} = State2.start_link("Para bailar la bamba")
-GenServer.init()
-# :sys.get_status(State2)
-# Process.alive?(State2)
-```
+Kino.start_child({State, "para bailar"})
 
-```elixir
-# GenServer.init(state_pid, 1)
-# #State.start_link("Para bailar la bamba")
-# Process.alive?(State2)
-:sys.get_status(State2)
+State.set(State, "la bamba")
+
+State.get(State)
 ```
 
 Create a minimal `Named` [GenServer](https://hexdocs.pm/elixir/GenServer.html) that can be started and configured as a named process using `Named.start_link/1`. Start a `Named` process and use [GenServer.whereis/1](https://hexdocs.pm/elixir/GenServer.html#whereis/1) and/or [Process.whereis/1](https://hexdocs.pm/elixir/Process.html#whereis/1) to find the pid of the named process.
